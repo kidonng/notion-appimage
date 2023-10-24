@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Notion
+Categories=Network
+Exec=/path/to/AppImage --ozone-platform-hint=auto --enable-wayland-ime
+Icon=notion
+StartupWMClass=notion
+MimeType=x-scheme-handler/notion;

@@ -38,4 +38,4 @@ cd app
 # Icon does not work, no idea, skip for now
 rm icon.ico
 # https://www.electron.build/cli
-npx -y electron-builder --linux appimage --config ../electron-builder.yml
+npx -y electron-builder --linux appimage --config ../assets/electron-builder.yml

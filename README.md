@@ -14,6 +14,13 @@ Get the app via [GitHub releases](https://github.com/kidonng/notion-appimage/rel
 
 As an AppImage, it requires [FUSE](https://github.com/AppImage/AppImageKit/wiki/FUSE) to run.
 
+---
+
+To create a shortcut in your application menu:
+
+- Edit [`assets/Notion.desktop`](assets/Notion.desktop) to point to the AppImage and copy to `~/.local/share/applications`
+- Copy [`assets/notion.png`](assets/notion.png) to `.local/share/icons/hicolor/256x256/apps`
+
 ## Build
 
 Prepare dependencies:
