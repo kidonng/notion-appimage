@@ -39,7 +39,9 @@ Then run [`build.sh`](build.sh).
 
 ### Why AppImage?
 
-I would rather use the web version than other solutions. That said, I'm also planning to package Notion for Arch Linux (AUR).
+I would rather use the web version than other solutions.
+
+If you are on Arch Linux, I recommend [`notion-app-electron`](https://aur.archlinux.org/packages/notion-app-electron) on AUR which is inspired by this repack.
 
 ### What about [notion-enhancer](https://github.com/notion-enhancer/notion-repackaged)?
 
