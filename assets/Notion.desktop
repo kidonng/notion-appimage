@@ -1,10 +1,12 @@
 [Desktop Entry]
 Version=1.0
-Terminal=false
 Type=Application
 Name=Notion
-Categories=Network
-Exec=/path/to/AppImage --ozone-platform-hint=auto --enable-wayland-ime
+GenericName=Wiki, docs & projects
+Comment=notion
+Exec=/path/to/notion %U
 Icon=notion
-StartupWMClass=notion
+Terminal=false
+StartupNotify=false
+Categories=Office;
 MimeType=x-scheme-handler/notion;
