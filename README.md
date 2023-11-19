@@ -19,7 +19,7 @@ As an AppImage, it requires [FUSE](https://github.com/AppImage/AppImageKit/wiki/
 To create a shortcut in your application menu:
 
 - Edit [`assets/Notion.desktop`](assets/Notion.desktop) to point to the AppImage and copy to `~/.local/share/applications`
-- Copy [`assets/notion.png`](assets/notion.png) to `.local/share/icons/hicolor/256x256/apps`
+- Copy [`assets/icon.png`](assets/icon.png) to `.local/share/icons/hicolor/256x256/apps`
 
 ## Build
 
@@ -41,7 +41,7 @@ Then run [`build.sh`](build.sh).
 
 I would rather use the web version than other solutions.
 
-If you are on Arch Linux, I recommend [`notion-app-electron`](https://aur.archlinux.org/packages/notion-app-electron) on AUR which is inspired by this repack.
+If you are on Arch Linux, I recommend [`notion-app-electron`](https://aur.archlinux.org/packages/notion-app-electron) on AUR which is (co-)maintained by me.
 
 ### What about [notion-enhancer](https://github.com/notion-enhancer/notion-repackaged)?
 

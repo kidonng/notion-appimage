@@ -1,41 +1,44 @@
-# Notion AppImage
-# Dependencies: 7z, node & npm, standard unix tools
+mkdir build
+pushd build
 
-# 1. Fetch installer & extract app
-installer=installer.exe
-app=app-64.7z
-asar=app.asar
+curl --location https://www.notion.so/desktop/windows/download --output installer
 
-curl --location https://www.notion.so/desktop/windows/download --output $installer
+7z e installer \$PLUGINSDIR/app-64.7z
+7z e app-64.7z resources/app.asar
+npx --yes @electron/asar extract app.asar app
 
-7z e $installer \$PLUGINSDIR/$app
-7z e $app resources/$asar
-npx -y @electron/asar extract $asar app
-
-rm $installer $app $asar
-
-# 2. Build better-sqlite3
 sqlite=$(node --print "require('./app/package.json').dependencies['better-sqlite3']")
 electron=$(node --print "require('./app/package.json').devDependencies['electron']")
 
-# "Download" the pacakge with npm instead of parsing the package spec ourselves
+# Download better-sqlite3
+# It's a git:// URL, don't bother doing it otherwise
 npm pack $sqlite
-tar=better-sqlite3-*.tgz
-tar --extract --file $tar
-rm $tar
+tar --extract --file better-sqlite3-*.tgz
 
+# Rebuild better-sqlite3
 pushd package
-# Will build later
-npm install --ignore-scripts
+npm install
 # https://www.electronjs.org/docs/latest/tutorial/using-native-node-modules#manually-building-for-electron
 npx node-gyp rebuild --target=$electron --arch=x64 --dist-url=https://electronjs.org/headers
-cp build/Release/better_sqlite3.node ../app/node_modules/better-sqlite3/build/Release/
+cp build/Release/better_sqlite3.node ../app/node_modules/better-sqlite3/build/Release
 popd
-rm -r package
 
-# 3. Build AppImage
-cd app
-# Icon does not work, no idea, skip for now
+pushd app
+
+# Official icon is not recognized by electron builder
 rm icon.ico
+cp ../../assets/icon.png .
+
+# - Patch platform detection
+# - Disable auto update
+sed --in-place '
+	s/"win32"===process.platform/(true)/g
+	s/_.Store.getState().app.preferences?.isAutoUpdaterDisabled/(true)/g
+' .webpack/main/index.js
+
+# Don't let electron-builder rebuild native dependencies
 # https://www.electron.build/cli
-npx -y electron-builder --linux appimage --config ../assets/electron-builder.yml
+npx --yes electron-builder --linux appimage --config.npmRebuild=false
+popd
+
+popd

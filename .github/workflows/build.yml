@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: bash build.sh
+      - run: bash -x build.sh
       - uses: actions/upload-artifact@v3
         with:
-          path: app/dist/*.AppImage
+          path: build/app/dist/Notion-*.AppImage
