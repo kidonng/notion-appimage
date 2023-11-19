@@ -12,7 +12,7 @@ new_ver=$(curl --silent https://desktop-release.notion-static.com/latest.yml |
 # printf "$new_ver"
 
 if [ $cur_ver = $new_ver ]; then
-	printf "eq\n"
+	printf "今日无事可做\n"
 else
-	printf "ne\n"
+	bash -x ./build.sh
 fi

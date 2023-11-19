@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: bash -x build.sh
+      - run: bash -x check.sh
       - uses: actions/upload-artifact@v3
         with:
           path: build/app/dist/Notion-*.AppImage
