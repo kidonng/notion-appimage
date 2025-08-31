@@ -4,20 +4,20 @@ pushd build
 curl --location https://www.notion.so/desktop/windows/download --output installer
 
 7z e installer \$PLUGINSDIR/app-64.7z
-7z e app-64.7z resources/app.asar
-npx --yes @electron/asar extract app.asar app
+7z x app-64.7z resources/
+npx --yes @electron/asar extract resources/app.asar app
 
 sqlite=$(node --print "require('./app/package.json').dependencies['better-sqlite3']")
 electron=$(node --print "require('./app/package.json').devDependencies['electron']")
 
 # Download better-sqlite3
 # It's a git:// URL, don't bother doing it otherwise
-npm pack $sqlite
+npm pack better-sqlite3@$sqlite
 tar --extract --file better-sqlite3-*.tgz
 
 # Rebuild better-sqlite3
 pushd package
-npm install
+npm install --no-audit
 # https://www.electronjs.org/docs/latest/tutorial/using-native-node-modules#manually-building-for-electron
 npx node-gyp rebuild --target=$electron --arch=x64 --dist-url=https://electronjs.org/headers
 cp build/Release/better_sqlite3.node ../app/node_modules/better-sqlite3/build/Release
@@ -38,7 +38,7 @@ sed --in-place '
 
 # Don't let electron-builder rebuild native dependencies
 # https://www.electron.build/cli
-npx --yes electron-builder --linux appimage --config.npmRebuild=false
+npx --yes electron-builder@25 --linux appimage --config.npmRebuild=false
 popd
 
 popd
